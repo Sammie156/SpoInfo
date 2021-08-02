@@ -31,5 +31,8 @@ elif choice == "Songs":
         if(name == track_name):
             track_id = track['id']
             album_id = track['album']['id']
+            album_name = track['album']['name']
             print("Album ID :", album_id)
-            print("Album URI : ", track['uri'])
+            print("Album URI :", track['uri'])
+            print("Album Name :", album_name)
+            print()
