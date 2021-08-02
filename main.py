@@ -8,10 +8,10 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=config('CLI
 while(True):
     choice = input("Enter your choice \n 1. Artists \n 2. Songs \n Quit to Exit \n ")
 
-    if choice == "Artists":
+    if choice.lower() == "Artists":
         while (True):
             name = input("Enter name of Artist : ")
-            if name == "Quit" or name == "quit":
+            if name.lower() == "quit":
                 break
             # Prints the top ten tracks of the Artist name entered.
             results = sp.search(q=name, type='artist')
@@ -27,12 +27,12 @@ while(True):
     elif choice == "Songs":
         while(True):
             name = input("Enter name of song : ")
-            if name == "Quit" or name == "quit":
+            if name.lower() == "quit":
                 break
             results = sp.search(q=name, type='track')
             for idx, track in enumerate(results['tracks']['items']):
                 track_name = track['name']
-                if(name == track_name):
+                if(name.lower() == track_name.lower()):
                     track_id = track['id']
                     album_id = track['album']['id']
                     album_name = track['album']['name']
@@ -40,7 +40,7 @@ while(True):
                     album_uri = track['album']['uri']
                     print(f"Album ID : {album_id} \nSong URI : {song_uri} \nAlbum Name : {album_name}\nAlbum URI : {album_uri}\n")
                     
-    elif choice == "Quit" or choice == "quit":
+    elif choice.lower() == "quit":
         print()
         break
 
