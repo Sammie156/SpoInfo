@@ -33,4 +33,3 @@ elif choice == "Songs":
             album_id = track['album']['id']
             print("Album ID :", album_id)
             print("Album URI : ", track['uri'])
-            album_tracks = sp.album_tracks(album_id, limit=10, market='US')
