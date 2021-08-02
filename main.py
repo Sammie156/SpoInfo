@@ -3,16 +3,31 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 # Fetching CLIENT_ID and CLIENT_SECRET from the `.env` file, not pushed
-API_ID = config('CLIENT_ID')
-API_SECRET = config('CLIENT_SECRET')
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=config('CLIENT_ID'),
+                                                           client_secret=config('CLIENT_SECRET')))
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=API_ID,
-                                                           client_secret=API_SECRET))
+choice = input("Enter your choice \n 1. Artists \n 2. Songs \n")
 
-name = input("Enter Artist name : ")
+if choice == "Artists":
+    name = input("Enter name of Artist : ")
+    # Prints the top ten tracks of the Artist name entered.
+    results = sp.search(q=name, type='artist')
+    for idx, track in enumerate(results['artists']['items']):
+       artist_name = track['name']
+       if(artist_name == name):
+           artist_id = track['id']
+           print("ID :", artist_id)
+           artist = sp.artist(artist_id)
+           popularity = artist['popularity']
+           print("Popularity :", popularity)
 
-# Prints the top ten tracks of the Artist name entered.
-
-results = sp.search(q=name, limit=10)
-for idx, track in enumerate(results['tracks']['items']):
-    print(idx + 1, track['name'])
+elif choice == "Songs":
+    name = input("Enter name of song : ")
+    results = sp.search(q=name, type='track')
+    for idx, track in enumerate(results['tracks']['items']):
+        track_name = track['name']
+        if(name == track_name):
+            track_id = track['id']
+            album_id = track['album']['id']
+            print(album_id)
+            album_tracks = sp.album_tracks(album_id, limit=10, market='US')
