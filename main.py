@@ -37,10 +37,9 @@ while(True):
                     album_id = track['album']['id']
                     album_name = track['album']['name']
                     song_uri = track['uri']
-                    print("Album ID :", album_id)
-                    print("Album URI :", song_uri)
-                    print("Album Name :", album_name)
-                    print()
+                    album_uri = track['album']['uri']
+                    print(f"Album ID : {album_id} \nSong URI : {song_uri} \nAlbum Name : {album_name}\nAlbum URI : {album_uri}\n")
+                    
     elif choice == "Quit" or choice == "quit":
         print()
         break
