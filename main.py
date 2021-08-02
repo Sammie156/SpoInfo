@@ -18,8 +18,10 @@ if choice == "Artists":
            artist_id = track['id']
            print("ID :", artist_id)
            artist = sp.artist(artist_id)
+           artist_uri = artist['uri']
            popularity = artist['popularity']
            print("Popularity :", popularity)
+           print("URI : ", artist_uri)
 
 elif choice == "Songs":
     name = input("Enter name of song : ")
@@ -29,5 +31,6 @@ elif choice == "Songs":
         if(name == track_name):
             track_id = track['id']
             album_id = track['album']['id']
-            print(album_id)
+            print("Album ID :", album_id)
+            print("Album URI : ", track['uri'])
             album_tracks = sp.album_tracks(album_id, limit=10, market='US')
